@@ -5,7 +5,9 @@ export function postChangeActionCreator(value) {
   return { type: 'WATCH-POST', text: value }
 }
 
-function Posts(state, action) {
+const initialState = { Posts: [], _currentPostText: '' }
+
+function Posts(state = initialState, action) {
   switch (action.type) {
     case 'ADD-POST':
       if (!state._currentPostText.length) {

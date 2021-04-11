@@ -3,17 +3,18 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import store from './redux/store'
+import store from './redux/redux-store'
 
 function renderEntireState(state) {
   ReactDOM.render(
     <React.StrictMode>
-      <App state={state} disputch={store.disputch.bind(store)} />
+      <App state={state} disputch={store.dispatch.bind(store)} />
     </React.StrictMode>,
     document.getElementById('root')
   )
 }
-store.subscribe(renderEntireState)
+store.subscribe(() => renderEntireState(store.getState()))
+
 renderEntireState(store.getState())
 
 // If you want to start measuring performance in your app, pass a function
