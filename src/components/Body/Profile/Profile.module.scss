@@ -1,0 +1,23 @@
+.Profile{
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  color: black;
+person{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  photo{
+    width: 100px;
+    height: 100px;
+    background-image: url('https://i.ya-webdesign.com/images/person-svg-circle-icon-1.png');
+    background-position: center;
+  }
+  info{
+    width: 100%;
+    flex-grow: 1;
+  }
+}
+
+}
