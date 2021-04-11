@@ -4,7 +4,7 @@ function Output(props) {
   return props.wall.map((post, idex) => {
     return (
       <div className={style.item} key={post.id}>
-        {`${post.time}: ${post.text}`}
+        {` ${post.time} : ${post.text}`}
       </div>
     )
   })

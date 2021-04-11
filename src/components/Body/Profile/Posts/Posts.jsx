@@ -1,18 +1,20 @@
 import style from './Posts.module.scss'
 import React from 'react'
 import Output from './Output/Output'
+import {
+  postChangeActionCreator,
+  addNewPostActionCreator,
+} from '../../../../redux/postsReducer'
 
 function Posts(props) {
   const referense = React.createRef()
 
   function postChange() {
-    let value = referense.current.value
-    //props.watchPost(value)
-    props.disputch({ type: 'watchPost', text: value })
+    props.disputch(postChangeActionCreator(referense.current.value))
   }
 
   function addNewPost() {
-    props.disputch({ type: 'addPost' })
+    props.disputch(addNewPostActionCreator())
   }
   return (
     <div className={style.Posts}>
