@@ -1,10 +1,25 @@
-.sidebar{
+$textColor: #328DC9;
+$lightColor: #0099ff;
+$darkColor:#003A5F;
+$grayColor: #EDEEF0;
+
+.sidebar {
   width: 100%;
-  max-width: 120px;
+  max-width: 80px;
   min-height: 100%;
-  border-right: 3px solid  rgb(161, 252, 244);
-  padding: 10px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  
+  font-weight: 700;
+
+  a {
+    text-decoration: none;
+    color: #328DC9;
+    margin-bottom: 5px;
+  }
+
+  a:hover {
+    color: #0099ff;
+  }
+
 }

@@ -8,23 +8,30 @@ export function postChangeActionCreator(value) {
 const initialState = { Posts: [], _currentPostText: '' }
 
 function Posts(state = initialState, action) {
+  let newState = { ...state }
+  newState.Posts = [...state.Posts]
+  newState._currentPostText = [...state._currentPostText]
+
   switch (action.type) {
     case 'ADD-POST':
-      if (!state._currentPostText.length) {
-        return state
+      if (!newState._currentPostText.length) {
+        return newState
       }
-      state.Posts.push({
+
+      newState.Posts.push({
         id: state.Posts.length,
         time: new Date().toLocaleString('ru'),
         text: state._currentPostText,
       })
-      state._currentPostText = ''
-      return state
+      newState._currentPostText = ''
+      return newState
+
     case 'WATCH-POST':
-      state._currentPostText = action.text
-      return state
+      newState._currentPostText = action.text
+      return newState
+
     default:
-      return state
+      return newState
   }
 }
 export default Posts

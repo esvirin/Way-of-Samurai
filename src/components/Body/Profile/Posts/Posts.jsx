@@ -1,20 +1,13 @@
 import style from './Posts.module.scss'
 import React from 'react'
 import Output from './Output/Output'
-import {
-  postChangeActionCreator,
-  addNewPostActionCreator,
-} from '../../../../redux/postsReducer'
 
 function Posts(props) {
   const referense = React.createRef()
 
-  function postChange() {
-    props.disputch(postChangeActionCreator(referense.current.value))
-  }
-
-  function addNewPost() {
-    props.disputch(addNewPostActionCreator())
+  function postChanging() {
+    let value = referense.current.value
+    props.postChange(value)
   }
   return (
     <div className={style.Posts}>
@@ -22,9 +15,9 @@ function Posts(props) {
         type='text'
         ref={referense}
         value={props.postValue}
-        onChange={postChange}
+        onChange={postChanging}
       />
-      <button type='button' onClick={addNewPost}>
+      <button type='button' onClick={props.addNewPost}>
         add
       </button>
       <Output className={style.output} wall={props.posts} />

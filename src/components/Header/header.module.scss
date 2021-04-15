@@ -1,11 +1,17 @@
-.header{
+$textColor: #328DC9;
+$lightColor: #0099ff;
+$darkColor:#003A5F;
+$grayColor: #EDEEF0;
+
+.header {
   width: 100%;
-  background-color: rgb(161, 252, 244);
-  height: 70px;
+  background-color: $darkColor;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  text-transform: uppercase;
-  font-weight: 900;
-  color: aliceblue;
+  font-weight: 400;
+  font-size: 2rem;
+  color: white;
+  font-family: 'Lobster', cursive;
 }

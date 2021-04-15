@@ -6,6 +6,7 @@ function Sidebar() {
     <div className={style.sidebar}>
       <NavLink to='/Profile'>Profile</NavLink>
       <NavLink to='/Messages'>Messages</NavLink>
+      <NavLink to='/Users'>Users</NavLink>
     </div>
   )
 }
