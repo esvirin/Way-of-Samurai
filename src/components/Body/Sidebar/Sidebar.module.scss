@@ -4,13 +4,17 @@ $darkColor:#003A5F;
 $grayColor: #EDEEF0;
 
 .sidebar {
-  width: 100%;
-  max-width: 80px;
-  min-height: 100%;
-  padding: 15px;
-  display: flex;
+  max-width: 120px;
+  height: 100%;
+  padding-left: 15px;
+  padding-right: 20px;
+  position: fixed;
+  top: 70px;
+  display: inline-flex;
   flex-direction: column;
   font-weight: 700;
+  font-size: 1.3rem;
+
 
   a {
     text-decoration: none;

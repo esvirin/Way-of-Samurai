@@ -3,28 +3,50 @@ $lightColor: #0099ff;
 $darkColor: #003a5f;
 $grayColor: #edeef0;
 
-.users {
-  width: 100%;
-  flex-grow: 1;
-  margin: 0 auto;
+.pagination {
+  display: block;
+  overflow-x: scroll;
+  padding-bottom: 15px;
+  margin-right: 10px;
 }
 
-.wrapper {
-  width: 100%;
-  display: flex;
+.pagactive,
+.pagin {
+  font-size: 0.7rem;
+  margin: 0 5px;
+  color: $darkColor;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pagactive {
+  font-weight: 900;
+  color: $lightColor;
+
+}
+
+
+.users {
+  margin-left: 120px;
+
+}
+
+.userWrapper {
+  display: inline-flex;
   padding: 10px;
   border-bottom: 1px solid $darkColor;
+  max-width: 220px;
+
 
   .user {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    overflow-wrap: break-word;
 
     .avatar {
       width: 60px;
       height: 60px;
-      background-image: url('https://i.ya-webdesign.com/images/person-svg-circle-icon-1.png');
       background-position: center;
       background-size: contain;
       background-repeat: no-repeat;
@@ -34,10 +56,9 @@ $grayColor: #edeef0;
       width: 60px;
       background-color: $darkColor;
       color: #edeef0;
-      margin-top: 10px;
       border-radius: 5px;
       outline: none;
-      align-content: center;
+
     }
 
 
@@ -46,12 +67,15 @@ $grayColor: #edeef0;
   .description {
     padding: 10px;
 
-    .fullName {
+
+    .name {
       font-family: Lobster;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
+      word-break: break-all;
+
     }
 
-    .status {}
+
   }
 
 
