@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'Lato';
-  src: url('./accets/fonts/Lato-Regular.ttf');
+  src: url('./accets/fonts/Katana.ttf');
 }
 
 @font-face {
   font-family: 'Lobster';
-  src: url('./accets/fonts/Lobster-Regular.ttf');
+  src: url('./accets/fonts/Japanese.ttf');
 }
 
 body {

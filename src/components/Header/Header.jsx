@@ -1,8 +1,15 @@
 import React from 'react'
-import style from './header.module.scss'
+import styles from './header.module.scss'
+import LoginContainer from "./Login/LoginContainer";
+import logo from '../../accets/img/logo.png'
 
 function Header() {
-  return <div className={style.header}>Way of the Samurai</div>
+    return <div className={styles.header}>
+        <img className={styles.logo} src={logo} alt="logo"/>
+        <h1>Way of Samurai</h1>
+        <LoginContainer/>
+    </div>
+
 }
 
 export default Header

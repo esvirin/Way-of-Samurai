@@ -1,6 +1,6 @@
 $textColor: #328DC9;
 $lightColor: #0099ff;
-$darkColor:#003A5F;
+$darkColor: #003A5F;
 $grayColor: #EDEEF0;
 
 .Profile {
@@ -10,21 +10,44 @@ $grayColor: #EDEEF0;
 }
 
 .person {
-  display: flex;
+  display: grid;
+  grid-template-areas:
+          'photo name'
+          'photo info'
+          'photo job'
+          'photo jobd';
 
   .photo {
     width: 120px;
     height: 120px;
-    margin: 10px;
-    background-image: url('https://i.ya-webdesign.com/images/person-svg-circle-icon-1.png');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
+    margin:0 10px;
+    grid-area: photo;
+    border-radius: 50%;
+  }
+
+  .name {
+    font-size: 1.3rem;
+    font-weight: 700;
+
+    padding:0 10px;
+    grid-area: name;
 
   }
 
   .info {
-    padding: 10px;
+    padding:0 10px;
     color: $darkColor;
+    grid-area: info;
+
+  }
+  .job{
+    font-family: 'Lato';
+    font-weight: 700;
+    grid-area: job;
+    padding:0 10px;
+  }
+  .jobdescription{
+    grid-area: jobd;
+    padding: 0 10px;
   }
 }

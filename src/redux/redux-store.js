@@ -1,10 +1,12 @@
 import { combineReducers, createStore } from 'redux'
-import postsReducer from './postsReducer'
+import profileReducer from './profileReducer'
 import usersReducer from './usersReducer'
+import authReducer from './authReducer'
 
 let reducers = combineReducers({
-  Profile: postsReducer,
+  Profile: profileReducer,
   Users: usersReducer,
+  Auth: authReducer
 })
 
 let store = createStore(reducers)

@@ -1,4 +1,4 @@
-import postsReducer from './postsReducer'
+import profileReducer from './profileReducer'
 
 const store = {
   _state: {
@@ -15,7 +15,7 @@ const store = {
     this._callSubscriber = observer
   },
   disputch(action) {
-    this._state.Profile = postsReducer(this._state.Profile, action)
+    this._state.Profile = profileReducer(this._state.Profile, action)
     this._callSubscriber(this._state)
   },
   getState() {

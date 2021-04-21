@@ -5,13 +5,29 @@ $grayColor: #EDEEF0;
 
 .header {
   width: 100%;
-  background-color: $darkColor;
+  background-color: #0099ff;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   font-weight: 400;
-  font-size: 2rem;
-  color: white;
-  font-family: 'Lobster', cursive;
+  font-size: 0.6rem;
+
+
+  h1{
+    color: #EDEEF0;
+    font-family: Lobster, serif;
+    text-shadow: 5px 5px 5px black;
+    letter-spacing: 0.2rem;
+    margin-left: 20px;
+    margin-right: auto;
+  }
+
+  .logo{
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+
+
+  }
 }
