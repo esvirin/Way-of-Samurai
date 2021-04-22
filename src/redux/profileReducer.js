@@ -1,3 +1,5 @@
+import {userAPI} from '../api/api'
+
 const initialState = {
     Posts: [],
 
@@ -23,7 +25,7 @@ const initialState = {
     }
 }
 
-function Posts(state = initialState, action) {
+function Profile(state = initialState, action) {
 
 
     switch (action.type) {
@@ -67,5 +69,14 @@ export const addNewPost = () => ({type: 'ADD-POST'})
 export const postChange = (value) => ({type: 'WATCH-POST', value})
 export const setUserProfile = (userData) => ({type: 'SET_USER_PROFILE', userData})
 
+export const getUserProfile = (userId) => {
 
-export default Posts
+      return (dispatch) => {
+        userAPI.getProfile(userId).then((data) => {
+            dispatch(setUserProfile(data))
+        })
+    }
+}
+
+
+export default Profile
