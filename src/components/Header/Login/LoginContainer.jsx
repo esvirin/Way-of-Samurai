@@ -8,7 +8,7 @@ class LoginContainer extends React.Component {
     componentDidMount() {
         axios
             .get('https://social-network.samuraijs.com/api/1.0/auth/me', {
-                withCredentials: false
+                withCredentials: true
             })
             .then((response) => {
                 this.props.setLogData(response.data.data)

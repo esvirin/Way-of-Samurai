@@ -2,6 +2,7 @@ import React from 'react'
 import style from './UsersPresent.module.scss'
 import {NavLink} from "react-router-dom";
 import defLogo from '../../../accets/img/defLogo.png'
+import * as axios from 'axios'
 
 function UsersPresent(props) {
     const totalPages = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -41,29 +42,55 @@ function UsersPresent(props) {
 
                         {user.followed ? (
                             <button
-                                onClick={() => props.unfollow(user.id)}
-                                className={style.button}
-                                type='button'>
-                                unfollow
-                            </button>
-                        ) : (
-                            <button
-                                onClick={() => props.follow(user.id)}
-                                className={style.button}
-                                type='button'>
-                                follow
-                            </button>
-                        )}
-                    </div>
+                                onClick={() => {
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
+                                        withCredentials: true,
+                                        headers:{
+                                            'API-KEY': '15bcd203-f87a-4606-9556-a1e8ecfb04be'
+                                        }
+                                    }).then(response => {
+                                        if (!response.data.resultCode) {
+                                            props.unfollow(user.id)
+                                        }
+                                    })
 
-                    <div className={style.description}>
-                        <div className={style.name}>{user.name}</div>
-                        <div className={style.status}>{user.status}</div>
-                    </div>
-                </div>
-            ))}
-        </div>
-    )
-}
 
-export default UsersPresent
+                                }}
+                                    className={style.button}
+                                    type='button'>
+                                    unfollow
+                                    </button>
+                                    ) : (
+                                    <button
+                                    onClick={() => {
+
+                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
+                                            withCredentials: true,
+                                            headers:{
+                                                'API-KEY': '15bcd203-f87a-4606-9556-a1e8ecfb04be'
+                                            }
+                                        }).then(response => {
+                                            if (!response.data.resultCode) {
+                                                props.follow(user.id)
+                                            }
+                                        })
+
+                                    }}
+                                    className={style.button}
+                                    type='button'>
+                                    follow
+                                    </button>
+                                    )}
+                            </div>
+
+                            <div className={style.description}>
+                            <div className={style.name}>{user.name}</div>
+                            <div className={style.status}>{user.status}</div>
+                            </div>
+                            </div>
+                            ))}
+                            </div>
+                            )
+                            }
+
+                            export default UsersPresent
