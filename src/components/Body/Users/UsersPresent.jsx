@@ -2,7 +2,7 @@ import React from 'react'
 import style from './UsersPresent.module.scss'
 import {NavLink} from "react-router-dom";
 import defLogo from '../../../accets/img/defLogo.png'
-import {userAPI} from "../../../api/api";
+
 
 function UsersPresent(props) {
     const totalPages = Math.ceil(props.totalUsersCount / props.pageSize)

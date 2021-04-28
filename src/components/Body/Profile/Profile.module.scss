@@ -4,25 +4,25 @@ $darkColor: #003A5F;
 $grayColor: #EDEEF0;
 
 .Profile {
-
+  background-color: #EDEEF0;
+  margin-right: 15px;
   margin-left: 120px;
+  padding: 10px 0;
 
 }
 
 .person {
-  display: grid;
-  grid-template-areas:
-          'photo name'
-          'photo info'
-          'photo job'
-          'photo jobd';
+  display: flex;
+  flex-direction: column;
+
 
   .photo {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
     margin:0 10px;
     grid-area: photo;
-    border-radius: 50%;
+    
+
   }
 
   .name {
@@ -30,24 +30,29 @@ $grayColor: #EDEEF0;
     font-weight: 700;
 
     padding:0 10px;
-    grid-area: name;
 
+
+  }
+  .status{
+    cursor: pointer;
+    margin: 5px 10px;
+    
   }
 
   .info {
     padding:0 10px;
     color: $darkColor;
-    grid-area: info;
+
 
   }
   .job{
     font-family: 'Lato';
     font-weight: 700;
-    grid-area: job;
+
     padding:0 10px;
   }
   .jobdescription{
-    grid-area: jobd;
+
     padding: 0 10px;
   }
 }

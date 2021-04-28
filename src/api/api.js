@@ -1,5 +1,6 @@
 import * as axios from 'axios'
 
+
 const create = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
@@ -30,14 +31,33 @@ export const userAPI = {
         }
     },
 
-    getProfile(userId) {
-        if (!userId) {
-            userId = 16527
-        }
+    getProfile(userId = 16527) {
+
         return create.get(`profile/${userId}`).then(response => response.data)
+    },
+    getProfileStatus(userId = 16527) {
+
+        return create.get(`profile/status/${userId}`).then(response => response.data)
+    },
+
+
+    getMe(){
+        return   create.get('auth/me').then(response => response.data)
+    },
+
+    setStatus(newStatus){
+        return create.put('profile/status', { status: newStatus}).then(response => response)
+    },
+    login(obj){
+        return create.post('auth/login',{
+            email: obj.email,
+            password:obj.password,
+            rememberMe: obj.rememberMe,
+            captcha: obj.captcha}).then(response => response.data)
+    },
+    logout(){
+        return create.delete('auth/login').then(response => response.data)
     }
-
-
 }
 
 

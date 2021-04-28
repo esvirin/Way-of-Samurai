@@ -1,24 +1,19 @@
 import React from 'react'
 import Login from "./Login";
 import {connect} from "react-redux";
-import axios from "axios";
-import {setLogData} from "../../../redux/authReducer";
+import {authMe, logoutMe} from "../../../redux/authReducer";
+
 
 class LoginContainer extends React.Component {
     componentDidMount() {
-        axios
-            .get('https://social-network.samuraijs.com/api/1.0/auth/me', {
-                withCredentials: true
-            })
-            .then((response) => {
-                this.props.setLogData(response.data.data)
-            })
+        this.props.authMe()
     }
 
     render() {
         return <Login
             data={this.props.data}
             isLogged={this.props.isLogged}
+            logoutMe={this.props.logoutMe}
         />
     }
 }
@@ -28,4 +23,4 @@ const mapStateToProps = (state) => ({
     isLogged: state.Auth.isLogged
 })
 
-export default connect(mapStateToProps, {setLogData})(LoginContainer)
+export default connect(mapStateToProps, {authMe,logoutMe})(LoginContainer)

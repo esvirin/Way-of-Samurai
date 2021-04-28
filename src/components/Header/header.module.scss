@@ -13,7 +13,7 @@ $grayColor: #EDEEF0;
   font-weight: 400;
   font-size: 0.6rem;
   max-width: 960px ;
-  margin: 15px auto;l
+  margin: 0 auto 15px auto;
 
 
   h1{
@@ -23,13 +23,19 @@ $grayColor: #EDEEF0;
     letter-spacing: 0.2rem;
     margin-left: 20px;
     margin-right: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-select: none;
   }
 
   .logo{
-    width: 40px;
-    height: 40px;
-    margin-left: 5px;
 
+    padding: 0;
+    margin-top: -5px;
+    margin-left: 5px;
+    font-size: 2rem;
+    user-select: none;
+    -webkit-user-select: none;
 
   }
 }

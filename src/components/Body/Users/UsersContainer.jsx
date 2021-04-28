@@ -6,6 +6,16 @@ import {
     setTotalUsersCount,
     setCurrentPage, getUsers, followUser,
 } from '../../../redux/usersReducer'
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
+import {
+    reselectUsers,
+    selectCurrentPage,
+    selectPageSize,
+    selectTotalUsersCount,
+    selectUsers
+} from "../../../redux/usersSelector";
 
 
 class Users extends React.Component {
@@ -37,14 +47,19 @@ class Users extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        users: state.Users.UsersList,
-        pageSize: state.Users.pageSize,
-        totalUsersCount: state.Users.totalUsersCount,
-        currentPage: state.Users.currentPage,
+        users: reselectUsers(state),
+        pageSize: selectPageSize(state),
+        totalUsersCount: selectTotalUsersCount(state),
+        currentPage: selectCurrentPage(state),
     }
 }
 
 
-export default connect(mapStateToProps, {
-    followUser, setUsers, setCurrentPage, setTotalUsersCount, getUsers
-})(Users)
+export default compose(
+    connect(mapStateToProps, {
+        followUser, setUsers, setCurrentPage, setTotalUsersCount, getUsers
+    }), withRouter,
+    withAuthRedirect
+)(Users)
+
+

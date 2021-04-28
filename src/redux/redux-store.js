@@ -3,13 +3,15 @@ import profileReducer from './profileReducer'
 import usersReducer from './usersReducer'
 import authReducer from './authReducer'
 import thunkMiddleWare from 'redux-thunk'
+import isFetchingReducer from "./isFetchingReducer";
 
-let reducers = combineReducers({
+const reducers = combineReducers({
   Profile: profileReducer,
   Users: usersReducer,
-  Auth: authReducer
+  Auth: authReducer,
+  Fetching: isFetchingReducer
 })
 
-let store = createStore(reducers,applyMiddleware(thunkMiddleWare))
+const store = createStore(reducers,applyMiddleware(thunkMiddleWare))
 window.store = store
 export default store
