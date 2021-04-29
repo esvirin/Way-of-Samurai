@@ -30,37 +30,14 @@ function Profile(state = initialState, action) {
 
 
     switch (action.type) {
-        case 'ADD-POST':
-            if (!state._currentPostText.length) {
-                return {...state}
-            }
-            return {
-                ...state,
-
-                Posts: state.Posts.push({
-                    id: state.Posts.length,
-                    time: new Date().toLocaleString('ru'),
-                    text: state._currentPostText
-                }),
-                _currentPostText: ''
-            }
-
-
-        case 'WATCH-POST':
-
-            return {
-                ...state,
-                _currentPostText: action.text
-            }
 
         case 'SET_USER_PROFILE':
-
             return {
                 ...state,
                 currentUser: action.userData
             }
-        case 'SET_USER_PROFILE_STATUS':
 
+        case 'SET_USER_PROFILE_STATUS':
             return {
                 ...state,
                 currentUser: {...state.currentUser, status: action.statusData}
@@ -72,33 +49,34 @@ function Profile(state = initialState, action) {
     }
 }
 
-
-export const addNewPost = () => ({type: 'ADD-POST'})
-export const postChange = (value) => ({type: 'WATCH-POST', value})
-export const setUserProfile = (userData) => ({type: 'SET_USER_PROFILE', userData})
-export const setUserProfileStatus = (statusData) => ({type: 'SET_USER_PROFILE_STATUS', statusData})
+const setUserProfile = (userData) => ({type: 'SET_USER_PROFILE', userData})
+const setUserProfileStatus = (statusData) => ({type: 'SET_USER_PROFILE_STATUS', statusData})
 
 export const setStatus = (newStatus) => {
-    return (dispatch) =>{
+    return async (dispatch) => {
 
-        userAPI.setStatus(newStatus).then(response => response.resultCode ? console.error(response.message) :
-            userAPI.getProfileStatus(16527)
-        ).then((data) => {
-            dispatch(setUserProfileStatus(data))
-        })
 
+        const responseSetStatus = await userAPI.setStatus(newStatus)
+
+        if (responseSetStatus.resultCode) {
+            console.error(responseSetStatus.message)
+        }
+
+        const getProfileStatus = await userAPI.getProfileStatus(16527)
+        dispatch(setUserProfileStatus(getProfileStatus))
 
     }
 }
 
 export const getUserProfile = (userId) => {
-    return (dispatch) => {
-        userAPI.getProfile(userId).then((data) => {
-            dispatch(setUserProfile(data))
-        })
-        userAPI.getProfileStatus(userId).then((data) => {
-            dispatch(setUserProfileStatus(data))
-        })
+    return async (dispatch) => {
+
+        const data = await userAPI.getProfile(userId)
+        dispatch(setUserProfile(data))
+
+        const status = await userAPI.getProfileStatus(userId)
+        dispatch(setUserProfileStatus(status))
+
     }
 }
 

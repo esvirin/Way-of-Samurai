@@ -19,7 +19,8 @@ function authReducer(state = initialState, action) {
                 isLogged: true
             }
         case 'LOGOUT':
-            return {...state,
+            return {
+                ...state,
                 isLogged: false,
                 data: {}
             }
@@ -31,7 +32,7 @@ function authReducer(state = initialState, action) {
 
 // action creator
 const setLogData = (data) => ({type: 'SET_LOG_DATA', data})
-const logout = ()=>({type: 'LOGOUT'})
+const logout = () => ({type: 'LOGOUT'})
 
 export default authReducer
 
@@ -42,7 +43,7 @@ export const authMe = () => {
     return (dispatch) => {
 
         userAPI.getMe().then((data) => {
-            if(data.resultCode){
+            if (data.resultCode) {
                 console.error(data.messages)
             }
             dispatch(setLogData(data.data))
@@ -51,12 +52,12 @@ export const authMe = () => {
     }
 }
 
-export const loginMe = (obj)=>{
-    return (dispatch) =>{
+export const loginMe = (obj) => {
+    return (dispatch) => {
 
-       return  userAPI.login(obj).then(data => {
-            if(data.resultCode){
-              console.error(data.messages)
+        return userAPI.login(obj).then(data => {
+            if (data.resultCode) {
+                console.error(data.messages)
             }
 
             dispatch(setLogData(data.data))
@@ -65,15 +66,9 @@ export const loginMe = (obj)=>{
     }
 }
 
-export const logoutMe = ()=>{
-    return (dispatch)=>{
-
-        return userAPI.logout().then(response => {
-            if(response.resultCode){
-                console.error(response.messages)
-            }
-            dispatch(logout())
-
-        })
+export const logoutMe = () => {
+    return async (dispatch) => {
+        const response = await userAPI.logout()
+        response.resultCode ? console.error(response.messages) : dispatch(logout())
     }
 }

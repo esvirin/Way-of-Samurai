@@ -14,7 +14,7 @@ import {
     selectCurrentPage,
     selectPageSize,
     selectTotalUsersCount,
-    selectUsers
+
 } from "../../../redux/usersSelector";
 
 

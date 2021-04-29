@@ -3,21 +3,21 @@ import React, {useEffect, useState} from 'react'
 import defLogo from '../../../accets/img/defLogo.png'
 
 
-function Profile(props) {
-    console.log(props)
+function Profile({statusValue,  currentUser, setStatus}) {
+
 
     const [editMode, changeEditMode] = useState(false)
-    const [status, changeStatus] = useState(props.statusValue)
+    const [status, changeStatus] = useState(statusValue)
 
-    useEffect(()=>{changeStatus(changeStatus)},[props.statusValue])
+    useEffect(()=>{changeStatus(changeStatus)},[statusValue])
 
     return (
         <div className={style.Profile}>
             <div className={style.person}>
                 <img src={
-                    props.currentUser.photos.small ? props.currentUser.photos.small : defLogo
+                    currentUser.photos.small ? currentUser.photos.small : defLogo
                 } className={style.photo} alt='user_photo'>{}</img>
-                <div className={style.name}>{props.currentUser.fullName}</div>
+                <div className={style.name}>{currentUser.fullName}</div>
 
                 {!editMode &&
                 <span className={style.status}
@@ -34,17 +34,17 @@ function Profile(props) {
                        autoFocus={true}
                        onBlur={() => {
                            changeEditMode(false)
-                           props.setStatus(status)
+                           setStatus(status)
                        }}
                 />
 
 
                 }
 
-                <div className={style.info}>{props.currentUser.aboutMe}</div>
-                <div className={style.job}>{props.currentUser.lookingForAJob ? <div>Ронин</div> :
+                <div className={style.info}>{currentUser.aboutMe}</div>
+                <div className={style.job}>{currentUser.lookingForAJob ? <div>Ронин</div> :
                     <div>Самурай</div>}</div>
-                <div className={style.jobdescription}>{props.currentUser.lookingForAJobDescription}</div>
+                <div className={style.jobdescription}>{currentUser.lookingForAJobDescription}</div>
 
             </div>
         </div>
