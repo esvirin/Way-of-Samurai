@@ -35,7 +35,7 @@ export const userAPI = {
 
         return create.get(`profile/${userId}`).then(response => response.data)
     },
-    getProfileStatus(userId = 16527) {
+    getProfileStatus(userId) {
 
         return create.get(`profile/status/${userId}`).then(response => response.data)
     },
@@ -57,6 +57,20 @@ export const userAPI = {
     },
     logout(){
         return create.delete('auth/login').then(response => response.data)
+    },
+
+    loadFile(file){
+        const formData = new FormData()
+        formData.append('image', file)
+        return create.put('profile/photo',formData,
+            {headers : {
+                'Content-Type' : 'multipart/form-data'
+                }
+        } ).then(response => response)
+    },
+
+    upLoadProfile(profile){
+        return create.put('profile', {...profile}).then(response => response.data)
     }
 }
 

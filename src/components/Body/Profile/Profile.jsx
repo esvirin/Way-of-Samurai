@@ -1,55 +1,67 @@
 import style from './Profile.module.scss'
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import defLogo from '../../../accets/img/defLogo.png'
+import ShowContacts from "./ShowContacts";
+import EditProfile from "./EditProfile";
 
 
-function Profile({statusValue,  currentUser, setStatus}) {
+function Profile({statusValue, currentUser, setStatus, loadFile, upLoadProfile}) {
+
+    let [editMode, toggleEditMode] = useState(false)
+
+    return <div className={style.person}>
+        {!editMode &&
+        <span onClick={() => {
+            toggleEditMode(editMode = !editMode)
+        }}>редактировать</span>
+        }
+        {editMode &&
+        <span onClick={() => {
+            toggleEditMode(editMode = !editMode)
+        }}>закрыть</span>
+        }
 
 
-    const [editMode, changeEditMode] = useState(false)
-    const [status, changeStatus] = useState(statusValue)
+        {editMode && <EditProfile
+            setStatus={setStatus}
+            loadFile={loadFile}
+            statusValue={statusValue}
+            currentUser={currentUser}
+            upLoadProfile={upLoadProfile}
+            toggleEditMode={toggleEditMode}
+            editMode={editMode}
+        />}
+        <img src={
+            currentUser.photos.small ? currentUser.photos.small : defLogo
+        } className={style.photo} alt='user_photo'>{}</img>
+        <div className={style.name}>{currentUser.fullName}</div>
+        <span className={style.status}>{statusValue || 'without status'}</span>
+        <div className={style.info}>{currentUser.aboutMe}</div>
+        <div className={style.job}>{currentUser.lookingForAJob ? <div>Ронин</div> :
+            <div>Самурай</div>}</div>
+        <div className={style.jobdescription}>{currentUser.lookingForAJobDescription}</div>
+        <ShowContacts contacts={currentUser.contacts}/>
 
-    useEffect(()=>{changeStatus(changeStatus)},[statusValue])
-
-    return (
-        <div className={style.Profile}>
-            <div className={style.person}>
-                <img src={
-                    currentUser.photos.small ? currentUser.photos.small : defLogo
-                } className={style.photo} alt='user_photo'>{}</img>
-                <div className={style.name}>{currentUser.fullName}</div>
-
-                {!editMode &&
-                <span className={style.status}
-                      onClick={() => {
-                          changeEditMode(true)
-                      }}
-                >{status || 'without status'}</span>}
-
-                {editMode &&
-                <input className={style.status}
-                       type='text'
-                       value={status}
-                       onChange={ (event)=>{ changeStatus(event.target.value) } }
-                       autoFocus={true}
-                       onBlur={() => {
-                           changeEditMode(false)
-                           setStatus(status)
-                       }}
-                />
-
-
-                }
-
-                <div className={style.info}>{currentUser.aboutMe}</div>
-                <div className={style.job}>{currentUser.lookingForAJob ? <div>Ронин</div> :
-                    <div>Самурай</div>}</div>
-                <div className={style.jobdescription}>{currentUser.lookingForAJobDescription}</div>
-
-            </div>
-        </div>
-    )
+    </div>
 }
 
 
 export default Profile
+
+
+// currentUser: {
+//     aboutMe: "",
+//    contacts: {
+//         facebook: "",
+//             website: "",
+//             vk: "",
+//             twitter: "",
+//             instagram: "",
+//     },
+//     fullName: "",
+//         lookingForAJob: false,
+//         lookingForAJobDescription: "",
+//         photos: {
+//         small: "https://i.ya-webdesign.com/images/person-svg-circle-icon-1.png",
+//             large: 'https://i.ya-webdesign.com/images/person-svg-circle-icon-1.png'
+//     }

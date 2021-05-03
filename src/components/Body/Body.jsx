@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react'
-import {Route} from 'react-router-dom'
+import {Redirect, Route, Switch} from 'react-router-dom'
 import style from './body.module.scss'
 import ProfileContainer from './Profile/ProfileContainer'
 import Sidebar from './Sidebar/Sidebar'
@@ -15,10 +15,13 @@ function Body(props) {
         <div className={style.body}>
             <Suspense fallback={<Fetching/>}>
                 <Sidebar/>
-                <Route path='/Profile/:userId?' render={() => <ProfileContainer/>}/>
-                <Route path='/Messages' render={() => <MessagesContainer/>}/>
-                <Route path='/Users' render={() => <UsersContainer/>}/>
-                <Route path='/Login' render={() => <LoginPageContainer/>}/>
+                <Switch>
+                    <Route exact path='/' render={() => <Redirect to={'/Profile'}/>}/>
+                    <Route path='/Profile/:userId?' render={() => <ProfileContainer/>}/>
+                    <Route path='/Messages' render={() => <MessagesContainer/>}/>
+                    <Route path='/Users' render={() => <UsersContainer/>}/>
+                    <Route path='/Login' render={() => <LoginPageContainer/>}/>
+                </Switch>
             </Suspense>
         </div>
     )

@@ -1,8 +1,8 @@
 import {userAPI} from '../api/api'
+import userPic from '../accets/img/defLogo.png'
 
 const initialState = {
     Posts: [],
-
     _currentPostText: '',
 
     currentUser: {
@@ -18,12 +18,11 @@ const initialState = {
         lookingForAJob: false,
         lookingForAJobDescription: "",
         photos: {
-            small: "https://i.ya-webdesign.com/images/person-svg-circle-icon-1.png",
-            large: 'https://i.ya-webdesign.com/images/person-svg-circle-icon-1.png'
-        },
-        userId: 16527,
-        status: ''
-    }
+            small: userPic,
+            large: userPic
+        }
+    },
+    currentUserStatus: ''
 }
 
 function Profile(state = initialState, action) {
@@ -40,9 +39,13 @@ function Profile(state = initialState, action) {
         case 'SET_USER_PROFILE_STATUS':
             return {
                 ...state,
-                currentUser: {...state.currentUser, status: action.statusData}
+                currentUserStatus: action.statusData
             }
-
+        case 'SET_USER_PHOTO':
+            return {
+                ...state,
+                currentUser: {...state.currentUser, photos: action.photos}
+            }
 
         default:
             return {...state}
@@ -51,20 +54,14 @@ function Profile(state = initialState, action) {
 
 const setUserProfile = (userData) => ({type: 'SET_USER_PROFILE', userData})
 const setUserProfileStatus = (statusData) => ({type: 'SET_USER_PROFILE_STATUS', statusData})
+const setUserPhoto = (photos) => ({type: 'SET_USER_PHOTO', photos})
+
 
 export const setStatus = (newStatus) => {
     return async (dispatch) => {
-
-
         const responseSetStatus = await userAPI.setStatus(newStatus)
-
-        if (responseSetStatus.resultCode) {
-            console.error(responseSetStatus.message)
-        }
-
-        const getProfileStatus = await userAPI.getProfileStatus(16527)
-        dispatch(setUserProfileStatus(getProfileStatus))
-
+        responseSetStatus.resultCode ? console.error(...responseSetStatus.messages) :
+            dispatch(setUserProfileStatus(newStatus))
     }
 }
 
@@ -80,5 +77,22 @@ export const getUserProfile = (userId) => {
     }
 }
 
+export const loadFile = (file) => {
+    return async (dispatch) => {
+        const response = await userAPI.loadFile(file)
+        response.resultCode ? console.error(...response.messages) :
+            dispatch(setUserPhoto(response.data))
+    }
+}
+
+export const upLoadProfile = (profile) => {
+    return async (dispatch, getState) => {
+        const response = await userAPI.upLoadProfile(profile)
+
+        response.resultCode ? console.error(...response.messages) :
+            dispatch(getUserProfile(getState().Auth.isLogged))
+
+    }
+}
 
 export default Profile

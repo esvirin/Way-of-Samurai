@@ -16,7 +16,7 @@ function authReducer(state = initialState, action) {
             return {
                 ...state,
                 data: {...action.data},
-                isLogged: true
+                isLogged: action.data.id
             }
         case 'LOGOUT':
             return {
@@ -44,7 +44,7 @@ export const authMe = () => {
 
         userAPI.getMe().then((data) => {
             if (data.resultCode) {
-                console.error(data.messages)
+               return console.error(...data.messages)
             }
             dispatch(setLogData(data.data))
 
@@ -61,7 +61,7 @@ export const loginMe = (obj) => {
             }
 
             dispatch(setLogData(data.data))
-
+            debugger
         })
     }
 }
