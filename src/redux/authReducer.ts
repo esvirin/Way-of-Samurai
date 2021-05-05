@@ -3,14 +3,15 @@ import {userAPI} from "../api/api";
 
 const initialState = {
     data: {
-        id: null,
-        email: null,
-        login: null
+        id: null as number | null,
+        email: null as string | null,
+        login: null as string | null,
     },
-    isLogged: false,
+    isLogged: false as boolean,
 }
+export type initialStateType = typeof initialState
 
-function authReducer(state = initialState, action) {
+function authReducer(state = initialState, action: any): initialStateType {
     switch (action.type) {
         case 'SET_LOG_DATA':
             return {
@@ -22,7 +23,11 @@ function authReducer(state = initialState, action) {
             return {
                 ...state,
                 isLogged: false,
-                data: {}
+                data: {
+                    id: null,
+                    email: null,
+                    login: null
+                }
             }
 
         default:
@@ -31,7 +36,7 @@ function authReducer(state = initialState, action) {
 }
 
 // action creator
-const setLogData = (data) => ({type: 'SET_LOG_DATA', data})
+const setLogData = (data: any) => ({type: 'SET_LOG_DATA', data})
 const logout = () => ({type: 'LOGOUT'})
 
 export default authReducer
@@ -40,11 +45,11 @@ export default authReducer
 // thunks
 
 export const authMe = () => {
-    return (dispatch) => {
+    return (dispatch: any) => {
 
-        userAPI.getMe().then((data) => {
+        userAPI.getMe().then((data: any) => {
             if (data.resultCode) {
-               return console.error(...data.messages)
+                return console.error(...data.messages)
             }
             dispatch(setLogData(data.data))
 
@@ -52,22 +57,22 @@ export const authMe = () => {
     }
 }
 
-export const loginMe = (obj) => {
-    return (dispatch) => {
+export const loginMe = (obj: any) => {
+    return (dispatch: any) => {
 
-        return userAPI.login(obj).then(data => {
-            if (data.resultCode) {
-                console.error(data.messages)
+        return userAPI.login(obj).then((response: any) => {
+            if (response.resultCode) {
+                console.error(response.messages)
             }
 
-            dispatch(setLogData(data.data))
+            dispatch(setLogData(response.data))
             debugger
         })
     }
 }
 
 export const logoutMe = () => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         const response = await userAPI.logout()
         response.resultCode ? console.error(response.messages) : dispatch(logout())
     }

@@ -5,50 +5,65 @@ $grayColor: #EDEEF0;
 
 
 .person {
-  background-color: #EDEEF0;
+
   margin-right: 15px;
   margin-left: 120px;
   padding: 10px 0;
   display: flex;
-  flex-direction: column;
+  user-select: none;
+
 
 
   .photo {
-    width: 100px;
-    margin:0 10px;
+    width: 200px;
+    height: 200px;
+    margin: 0 10px;
     grid-area: photo;
-    
+  }
 
+  .editmode {
+    cursor: pointer;
+    text-decoration: underline;
   }
 
   .name {
-    font-size: 1.3rem;
+    font-size: 2rem;
     font-weight: 700;
 
-    padding:0 10px;
-
-
   }
-  .status{
-    cursor: pointer;
-    margin: 5px 10px;
-    
+
+  .status {
+
   }
 
   .info {
-    padding:0 10px;
     color: $darkColor;
-
+  display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
   }
-  .job{
+
+  .job {
     font-family: 'Lato';
     font-weight: 700;
 
-    padding:0 10px;
-  }
-  .jobdescription{
 
-    padding: 0 10px;
+  }
+
+  .jobdescription {
+  }
+  .contactslist{
+  display: flex;
+    flex-direction: column;
+
+  }
+  .contacts{
+    color: red;
+    cursor: pointer;
+
+  }
+  .contact{
+
   }
 }
