@@ -1,5 +1,8 @@
+import {ThunkAction} from "redux-thunk";
 import {userAPI} from "../api/api";
+import {appStateType, InferActionsTypes} from "./redux-store";
 
+// -------------------- TYPING -------------------------
 export type photosType = {
     small: string | null
     large: string | null
@@ -11,6 +14,10 @@ export type UsersType = {
     status: string | null,
     followed: boolean
 }
+
+
+// ------------------------ INITIAL STATE ----------------------
+
 const initialState = {
     UsersList: [] as Array<UsersType>,
     pageSize: 100 as number,
@@ -20,13 +27,16 @@ const initialState = {
 
 export type initialStateType = typeof initialState
 
-function usersReducer(state = initialState, action: any): initialStateType {
+
+// ------------------------ REDUCER ----------------------
+
+function usersReducer(state = initialState, action: allActionTypes): initialStateType {
     switch (action.type) {
         case 'FOLLOW':
             return {
                 ...state,
 
-                UsersList: state.UsersList.map((user: any) => {
+                UsersList: state.UsersList.map((user) => {
                     if (user.id === action.userId) {
                         return {
                             ...user,
@@ -41,7 +51,7 @@ function usersReducer(state = initialState, action: any): initialStateType {
         case 'UNFOLLOW':
             return {
                 ...state,
-                UsersList: state.UsersList.map((user: any) => {
+                UsersList: state.UsersList.map((user) => {
                     if (user.id === action.userId) {
                         return {...user, followed: false}
                     } else {
@@ -63,56 +73,45 @@ function usersReducer(state = initialState, action: any): initialStateType {
     }
 }
 
+// ---------------------- ACTIONS ------------------------------------
 
-const FOLLOW = 'FOLLOW'
-export type followType = { type: typeof FOLLOW, userId: number }
-export const follow = (userId: number): followType => ({type: FOLLOW, userId})
+// all types of actions for typing reducer from ./redux-store
+type allActionTypes = InferActionsTypes<typeof actions>
 
-
-const UNFOLLOW = 'UNFOLLOW'
-export type unfollowType = { type: typeof UNFOLLOW, userId: number }
-export const unfollow = (userId: number): unfollowType => ({type: UNFOLLOW, userId})
-
-
-const SET_USERS = 'SET_USERS'
-export type setUsersType = { type: typeof SET_USERS, newUsers: Array<UsersType> }
-export const setUsers = (newUsers: Array<UsersType>): setUsersType => ({type: SET_USERS, newUsers})
-
-
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
-export type setTotalUsersCountType = { type: typeof SET_TOTAL_USERS_COUNT, count: number }
-export const setTotalUsersCount = (count: number): setTotalUsersCountType => ({
-    type: SET_TOTAL_USERS_COUNT,
-    count,
-})
+const actions = {
+    follow: (userId: number) => ({type: 'FOLLOW', userId} as const),
+    unfollow: (userId: number) => ({type: 'UNFOLLOW', userId} as const),
+    setUsers: (newUsers: Array<UsersType>) => ({type: 'SET_USERS', newUsers} as const),
+    setTotalUsersCount: (count: number) => ({
+        type: 'SET_TOTAL_USERS_COUNT',
+        count,
+    } as const),
+    setCurrentPage: (currentPage: number) => ({
+        type: 'SET_CURRENT_PAGE',
+        currentPage,
+    } as const)
+}
 
 
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
-export type setCurrentPageType = { type: typeof SET_CURRENT_PAGE, currentPage: number }
-export const setCurrentPage = (currentPage: number):setCurrentPageType => ({
-    type: SET_CURRENT_PAGE,
-    currentPage,
-})
+// -------------------   THUNK CREATORS   -------------------------
+type ThunkType = ThunkAction<void, appStateType, unknown, allActionTypes>
 
-
-
-export const getUsers = (currentPage: number, pageSize: number) => {
-
-    return (dispatch: any) => {
+export const getUsers = (currentPage: number, pageSize: number): ThunkType => {
+    return (dispatch) => {
         userAPI.getUsers(currentPage, pageSize)
-            .then((data: any) => {
-                dispatch(setTotalUsersCount(data.totalCount))
+            .then((data) => {
+                dispatch(actions.setTotalUsersCount(data.totalCount))
                 return data.items
             })
-            .then((users: any) => dispatch(setUsers(users)))
+            .then((users) => dispatch(actions.setUsers(users)))
     }
 }
 
-export const followUser = (boolean: boolean, userId: number) => {
-    return (dispatch: any) => {
-        userAPI.getFollowers(boolean, userId).then((data: any) => {
+export const followUser = (boolean: boolean, userId: number): ThunkType => {
+    return (dispatch) => {
+        userAPI.getFollowers(boolean, userId).then((data) => {
             if (!data.resultCode) {
-                boolean ? dispatch(follow(userId)) : dispatch(unfollow(userId))
+                boolean ? dispatch(actions.follow(userId)) : dispatch(actions.unfollow(userId))
             }
         })
     }

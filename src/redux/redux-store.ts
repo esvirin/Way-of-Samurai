@@ -5,16 +5,22 @@ import authReducer from './authReducer'
 import thunkMiddleWare from 'redux-thunk'
 import isFetchingReducer from "./isFetchingReducer";
 
-const reducers = combineReducers({
+const appReducer = combineReducers({
     Profile: profileReducer,
     Users: usersReducer,
     Auth: authReducer,
     Fetching: isFetchingReducer
 })
 
+type appReducerType = typeof appReducer
+export type appStateType = ReturnType<appReducerType>
 
+type PropertiesTypes<T> = T extends {[key:string]: infer U} ? U : never
+export type  InferActionsTypes<T extends {[key:string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
+
+// @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(
+const store = createStore(appReducer, composeEnhancers(
     applyMiddleware(thunkMiddleWare)
 ));
 

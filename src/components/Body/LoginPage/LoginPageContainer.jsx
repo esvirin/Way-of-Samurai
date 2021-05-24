@@ -15,7 +15,6 @@ class LoginPageContainer extends React.Component{
 
         />
     }
-
 }
 
 export default compose(

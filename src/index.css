@@ -1,3 +1,5 @@
+@import '~antd/dist/antd.css';
+
 @font-face {
   font-family: 'Lato';
   src: url('./accets/fonts/Lato-Regular.ttf');
@@ -14,6 +16,7 @@ body {
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 code {
